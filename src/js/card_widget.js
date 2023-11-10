@@ -1,9 +1,10 @@
-// import { isValidInn } from "./validators";
+import { detectPaymentSystem } from "./identer";
+import { validator } from "./validators";
 
 export class CardWidget {
     constructor(parentEl) {
         this.parentEl = parentEl;
-        // this.onSubmit = this.onSubmit.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
     static get markup() {
@@ -17,45 +18,44 @@ export class CardWidget {
             <img class="payment-logo" src="img/diners-club.png" alt="Diners Club">
         </div>
         <div class="input-container">
-            <input type="text" id="card-input" placeholder="Enter your card number">
-            <button id="validate-button">Validate</button>
+            <input type="text" class="card-input" placeholder="Enter your card number">
+            <button class="validate-button">Validate</button>
         </div>    
         `;
     }
 
-    // static get submitSelector() {
-    //     return '.submit';
-    // }
+    static get buttonSelector() {
+        return '.validate-button';
+    }
 
-    // static get inputSelector() {
-    //     return '.input';
-    // }
+    static get inputSelector() {
+        return '.card-input';
+    }
 
-    // static get selector() {
-    //     return '.innogrn-form-widget';
-    // }
+    static get selector() {
+        return '.input-container';
+    }
 
     bindToDOM() {
         this.parentEl.innerHTML = CardWidget.markup;
+        this.element = this.parentEl.querySelector(CardWidget.selector);
+        this.submit = this.element.querySelector(CardWidget.buttonSelector);
+        this.input = this.element.querySelector(CardWidget.inputSelector);
 
-        // this.element = this.parentEl.querySelector(InnFormWidget.selector);
-        // this.submit = this.element.querySelector(InnFormWidget.submitSelector);
-        // this.input = this.element.querySelector(InnFormWidget.inputSelector);
-
-        // this.element.addEventListener('submit', this.onSubmit);
+        this.element.addEventListener('click', this.onSubmit);
     }
 
-    // onSubmit(e) {
-    //     e.preventDefault();
+    onSubmit(e) {
+        e.preventDefault();
 
-    //     const value = this.input.value;
-
-    //     if(isValidInn(value)) {
-    //         this.input.classList.add('valid');
-    //         this.input.classList.remove('invalid');
-    //     } else {
-    //         this.input.classList.add('invalid');
-    //         this.input.classList.remove('valid');
-    //     }
-    // }
+        const value = this.input.value;
+        console.log(value)
+        // if(isValidInn(value)) {
+        //     this.input.classList.add('valid');
+        //     this.input.classList.remove('invalid');
+        // } else {
+        //     this.input.classList.add('invalid');
+        //     this.input.classList.remove('valid');
+        // }
+    }
 }
