@@ -10,18 +10,18 @@ export class CardWidget {
     static get markup() {
         return `
         <div class="logo-container">
-            <img class="payment-logo active-logo" src="img/visa.png" alt="Visa">
-            <img class="payment-logo" src="img/mastercard.png" alt="MasterCard">
-            <img class="payment-logo" src="img/amex.png" alt="American Express">
-            <img class="payment-logo" src="img/mir.png" alt="Mir">
-            <img class="payment-logo" src="img/jcb.png" alt="JCB">
-            <img class="payment-logo" src="img/diners-club.png" alt="Diners Club">
+            <img class="payment-logo" id="VISA" src="img/visa.png" alt="Visa">
+            <img class="payment-logo" id="MCARD" src="img/mastercard.png" alt="MasterCard">
+            <img class="payment-logo" id="AMEX" src="img/amex.png" alt="American Express">
+            <img class="payment-logo" id="MIR" src="img/mir.png" alt="Mir">
+            <img class="payment-logo" id="JCB" src="img/jcb.png" alt="JCB">
+            <img class="payment-logo" id="DC" src="img/diners-club.png" alt="Diners Club">
         </div>
-        <div class="input-container">
+        <form class="input-container">
             <input type="text" class="card-input" placeholder="Enter your card number">
             <button class="validate-button">Validate</button>
-        </div>    
-        `;
+        </form>   
+        `
     }
 
     static get buttonSelector() {
@@ -39,17 +39,30 @@ export class CardWidget {
     bindToDOM() {
         this.parentEl.innerHTML = CardWidget.markup;
         this.element = this.parentEl.querySelector(CardWidget.selector);
-        this.submit = this.element.querySelector(CardWidget.buttonSelector);
+        this.button = this.element.querySelector(CardWidget.buttonSelector);
         this.input = this.element.querySelector(CardWidget.inputSelector);
+        this.logosArray = Array.from(document.getElementsByClassName('payment-logo'))
 
-        this.element.addEventListener('click', this.onSubmit);
+        this.element.addEventListener('submit', this.onSubmit);
     }
 
     onSubmit(e) {
         e.preventDefault();
 
         const value = this.input.value;
-        console.log(value)
+        // console.log(value);
+        // console.log(detectPaymentSystem(value));
+        // console.log(validator(value));
+        if (validator(value)) {
+            let iban = detectPaymentSystem(value)
+            console.log(iban)
+        } else {
+            console.log('INVALID CARD NUMBER') 
+        }
+        
+        
+        
+        
         // if(isValidInn(value)) {
         //     this.input.classList.add('valid');
         //     this.input.classList.remove('invalid');
