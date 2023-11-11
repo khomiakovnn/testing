@@ -1,11 +1,8 @@
 export function validator(cardNumber) {
     
     let digitsArray = cardNumber.toString().split('').map(Number)
-    console.log(digitsArray)
     let lastDigit = digitsArray.pop();
-    console.log(lastDigit)
     digitsArray.reverse()
-    console.log(digitsArray)
     let arraySum = 0
     for (let i = 0; i < digitsArray.length; i++) {
         if (i % 2 == 0) {
@@ -17,6 +14,5 @@ export function validator(cardNumber) {
         arraySum += digitsArray[i]
     }
 
-    console.log(arraySum)
     return lastDigit == 10 - arraySum % 10    
 }
