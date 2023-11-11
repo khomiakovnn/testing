@@ -4,7 +4,7 @@ export function detectPaymentSystem(cardNumber) {
   
     if (/^4/.test(bin)) {
       return "VISA";
-    } else if (/^5[0-5]|^6(0|1|2|3|4|5)/.test(bin)) {
+    } else if (/^5[1-5]|^6(0|1|2|3|4|5)/.test(bin)) {
       return "MasterCard";
     } else if (/^34|^37/.test(bin)) {
       return "American Express";

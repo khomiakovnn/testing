@@ -50,9 +50,9 @@ export class CardWidget {
         e.preventDefault();
 
         const value = this.input.value;
-        // console.log(value);
-        // console.log(detectPaymentSystem(value));
-        // console.log(validator(value));
+        console.log(value);
+        console.log(detectPaymentSystem(value));
+        console.log(validator(value));
         if (validator(value)) {
             let iban = detectPaymentSystem(value)
             console.log(iban)
